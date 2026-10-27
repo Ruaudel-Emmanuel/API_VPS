@@ -1,0 +1,102 @@
+# Fichier de configuration de la whitelist pour API-VPS
+# Ce fichier définit les ressources autorisées pour chaque utilisateur.
+# Modifiez-le selon vos besoins.
+
+# --- Utilisateurs et leurs permissions ---
+users:
+  # Utilisateur par défaut pour Pi Agent
+  pi-agent:
+    # Portée des permissions (read:system, read:db, etc.)
+    scope: ["read:system", "read:db"]
+    
+    # Clés .env autorisées
+    allowed_env_keys:
+      - "N8N_DB_PASSWORD"
+      - "BROWSERLESS_TOKEN"
+      - "VPS_GATEWAY_KEY"
+      - "STRIPE_WEBHOOK_SECRET"
+      - "TALLY_WEBHOOK_SECRET"
+      - "GRAFANA_ADMIN_PASSWORD"
+    
+    # Chemins de fichiers autorisés
+    allowed_file_paths:
+      - "/home/ubuntu/.env"
+      - "/etc/caddy/Caddyfile"
+      - "/home/ubuntu/ORDRES.md"
+      - "/home/ubuntu/ETAT-VPS.md"
+      - "/home/ubuntu/API-VPS/whitelist.yaml"
+    
+    # Tables DB autorisées (format: schema.table)
+    allowed_db_tables:
+      - "n8n_db.public.workflow_history"
+      - "n8n_db.public.executions"
+      - "n8n_db.public.nodes"
+      - "twenty_db.public.users"
+      - "twenty_db.public.projects"
+    
+    # Colonnes toujours masquées dans les réponses
+    masked_env_keys:
+      - "N8N_DB_PASSWORD"
+      - "BROWSERLESS_TOKEN"
+      - "VPS_GATEWAY_KEY"
+      - "STRIPE_WEBHOOK_SECRET"
+      - "TALLY_WEBHOOK_SECRET"
+      - "GRAFANA_ADMIN_PASSWORD"
+    
+    # Colonnes interdites dans les requêtes DB (même si dans la table)
+    forbidden_columns:
+      - "password"
+      - "api_key"
+      - "token"
+      - "secret"
+      - "private_key"
+
+# --- Configuration du réseau Tailscale ---
+tailscale:
+  # IPs Tailscale autorisées
+  allowed_ips:
+    - "100.75.226.13"  # VPS (vps-rennesdev)
+    - "100.118.76.30"  # PC (super-pc-vert)
+    - "fd7a:115c:a1e0::/64"  # Plage IPv6 Tailscale
+  
+  # Noms d'hôte Tailscale autorisés (pour MagicDNS)
+  allowed_hostnames:
+    - "vps-rennesdev"
+    - "super-pc-vert"
+
+# --- Conventions de nommage ---
+naming_conventions:
+  db:
+    # Regex pour valider les noms de schéma, table, colonne
+    schema_pattern: "^[a-z0-9_]+$"
+    table_pattern: "^[a-z0-9_]+$"
+    column_pattern: "^[a-z0-9_]+$"
+    
+    # Longueur maximale
+    max_length:
+      schema: 64
+      table: 64
+      column: 64
+  
+  files:
+    # Regex pour valider les chemins de fichiers
+    path_pattern: "^(/home/ubuntu|/etc/caddy|/var/log/n8n)/[a-zA-Z0-9_\-\./]+$"
+    max_length: 256
+
+# --- Services critiques (pour /v1/health) ---
+critical_services:
+  - name: "PostgreSQL (n8n_db)"
+    check_command: "pg_isready -h localhost -p 5432 -U n8n -d n8n_db"
+    expected_output: "localhost:5432 - accepting connections"
+  
+  - name: "PostgreSQL (twenty_db)"
+    check_command: "pg_isready -h localhost -p 5433 -U twenty -d twenty_db"
+    expected_output: "localhost:5433 - accepting connections"
+  
+  - name: "n8n"
+    check_command: "curl -s http://localhost:5678/api/v1/health | grep -q '\"status\":\"ok\"'"
+    expected_output: ""
+  
+  - name: "Caddy"
+    check_command: "curl -s http://localhost:80 | grep -q '200 OK'"
+    expected_output: ""

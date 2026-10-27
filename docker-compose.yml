@@ -1,0 +1,51 @@
+# Docker Compose pour API-VPS
+# Ce fichier configure l'API Gateway avec FastAPI, PostgreSQL, et les dépendances nécessaires.
+# Utilisez `docker compose up -d` pour démarrer les services.
+
+version: '3.8'
+
+services:
+  api-gateway:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: vps-api-gateway
+    restart: unless-stopped
+    ports:
+      - "100.75.226.13:8000:8000"  # Uniquement accessible via Tailscale
+    env_file:
+      - .env  # Charge les variables d'environnement (JWT_SECRET, DB_URL, etc.)
+    volumes:
+      - ./whitelist.yaml:/app/whitelist.yaml:ro  # Whitelist des ressources autorisées
+      - /home/ubuntu/.env:/home/ubuntu/.env:ro  # Accès au fichier .env du VPS (optionnel)
+    networks:
+      - apps  # Réseau Docker partagé avec les autres services
+    depends_on:
+      - n8n_db  # Attend que PostgreSQL soit prêt
+
+  # Base de données PostgreSQL pour n8n (si non déjà existante)
+  n8n_db:
+    image: postgres:17-alpine
+    container_name: n8n_db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: n8n
+      POSTGRES_PASSWORD: n8n
+      POSTGRES_DB: n8n_db
+    volumes:
+      - n8n_db_data:/var/lib/postgresql/data
+    networks:
+      - apps
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U n8n -d n8n_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  n8n_db_data:  # Volume pour les données PostgreSQL
+
+networks:
+  apps:
+    name: apps
+    driver: bridge

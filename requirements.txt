@@ -1,0 +1,28 @@
+# Dépendances Python pour API-VPS
+# Utilisez `pip install -r requirements.txt` pour installer.
+
+# Framework API
+fastapi==0.109.0
+uvicorn==0.27.0
+
+# Base de données
+psycopg2-binary==2.9.9
+
+# Validation des données
+pydantic==2.5.3
+
+# Gestion des variables d'environnement
+dotenv==1.0.0
+pyyaml==6.0.1
+
+# JWT (Authentification)
+jose[cryptography]==1.0.0
+
+# Rate Limiting
+slowapi==0.1.8
+
+# Métriques Prometheus
+prometheus_client==0.19.0
+
+# Pour le développement local (optionnel)
+requests==2.31.0
