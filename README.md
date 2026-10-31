@@ -2,9 +2,6 @@
 
 Ce projet montre comment je sécurise l'accès des agents IA aux systèmes de mes clients : whitelist, contrôle, zéro exposition publique.
 
-## 🤝 Ce projet, c'est aussi mon métier
-
-
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Python 3.11](https://img.shields.io/badge/python-3.11-blue.svg)]
 [![FastAPI](https://img.shields.io/badge/FastAPI-005571.svg?logo=fastapi)]
