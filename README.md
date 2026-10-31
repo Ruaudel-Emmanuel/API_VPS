@@ -4,12 +4,6 @@ Ce projet montre comment je sécurise l'accès des agents IA aux systèmes de me
 
 ## 🤝 Ce projet, c'est aussi mon métier
 
-**Emmanuel Ruaudel — Directeur de la Transformation Numérique pour TPE/PME.**
-J'aide les dirigeants à libérer 5 à 10 h par semaine en automatisant leurs tâches
-répetitives : audit des processus, cas d'usage IA à fort ROI, déploiement et
-fiabilisation (n8n · Python · IA locale).
-
-📧 [ruaudel.emmanuel@orange.fr](mailto:ruaudel.emmanuel@orange.fr) · 🌐 [rennesdev.fr](https://rennesdev.fr)
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Python 3.11](https://img.shields.io/badge/python-3.11-blue.svg)]
@@ -53,8 +47,8 @@ fiabilisation (n8n · Python · IA locale).
 │                                                                               │
 │   💻 Pi Agent (PC)                                                             │
 │        │                                                                       │
-│        ▼ (Tailscale: 100.118.76.30)                                           │
-│   🔒 TAILSCALE (100.75.226.13)                                                 │
+│        ▼ (Tailscale: )                                           │
+│   🔒 TAILSCALE                                                  │
 │        │                                                                       │
 │        ▼                                                                       │
 │   🐳 DOCKER (Réseau `apps`)                                                    │
@@ -240,8 +234,8 @@ Ce projet est sous licence **MIT** – voir [LICENSE](LICENSE) pour plus de dét
 │                                                                               │
 │   💻 Pi Agent (PC)                                                             │
 │        │                                                                       │
-│        ▼ (Tailscale: 100.118.76.30)                                           │
-│   🔒 TAILSCALE (100.75.226.13)                                                 │
+│        ▼ (Tailscale)                                           │
+│   🔒 TAILSCALE                                                  │
 │        │                                                                       │
 │        ▼                                                                       │
 │   🐳 DOCKER (Network `apps`)                                                   │
@@ -338,8 +332,8 @@ users:
 - **Usage**: Add the header `Authorization: Bearer <JWT>` to each request.
 
 #### 3. **Network Access**
-- **Tailscale only**: The API only listens on the Tailscale IP (`100.75.226.13`).
-- **No public exposure**: No ports are bound to `0.0.0.0` or `162.19.246.165`.
+- **Tailscale only**: The API only listens on the Tailscale IP .
+- **No public exposure**: No ports are bound `.
 
 ---
 
@@ -391,6 +385,17 @@ Contributions are welcome! Open a **Pull Request** or **Issue** to:
 - Add a new feature.
 
 ---
+---
+
+## 🤝 Ce projet, c'est aussi mon métier
+
+**Emmanuel Ruaudel — Directeur de la Transformation Numérique pour TPE/PME.**
+J'aide les dirigeants à libérer 5 à 10 h par semaine en automatisant leurs tâches
+répétitives : audit des processus, cas d'usage IA à fort ROI, déploiement et
+fiabilisation (n8n · Python · IA locale).
+
+
+📧 [ruaudel.emmanuel@orange.fr](mailto:ruaudel.emmanuel@orange.fr) · 🌐 [rennesdev.fr](https://rennesdev.fr)
 
 ### 📜 License
 This project is licensed under **MIT** – see [LICENSE](LICENSE) for details.
