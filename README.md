@@ -388,8 +388,7 @@ Contributions are welcome! Open a **Pull Request** or **Issue** to:
 
 **Emmanuel Ruaudel — Directeur de la Transformation Numérique pour TPE/PME.**
 J'aide les dirigeants à libérer 5 à 10 h par semaine en automatisant leurs tâches
-répétitives : audit des processus, cas d'usage IA à fort ROI, déploiement et
-fiabilisation (n8n · Python · IA locale).
+répétitives.
 
 
 📧 [ruaudel.emmanuel@orange.fr](mailto:ruaudel.emmanuel@orange.fr) · 🌐 [rennesdev.fr](https://rennesdev.fr)
